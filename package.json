@@ -1,0 +1,30 @@
+{
+  "name": "procupine-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/zh_app.js",
+  "scripts": {
+    "build": "webpack --progress --env.type=0 --config build/webpack.config.js",
+    "buildmin": "webpack --progress --env.type=1 --config build/webpack.config.js",
+    "dev": "webpack --config build/webpack.config.js --progress --colors --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beiding110/procupine-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beiding110/procupine-app/issues"
+  },
+  "homepage": "https://github.com/beiding110/procupine-app#readme",
+  "devDependencies": {
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2"
+  }
+}

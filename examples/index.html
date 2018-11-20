@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>标题</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<script type="text/javascript" src="./js/vue.min.js"></script>
+	<script type="text/javascript" src="./js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="../dist/zh_app.js"></script>
+</head>
+<body>
+	<div id="main_con">
+		{{name}}
+	</div>
+
+    <script type="text/javascript">
+        console.log(mainVue)
+		new mainVue({
+			data: {
+				name: 'sjidog'
+			}
+		});
+
+		new Chain().link(function(obj, next) {
+			setTimeout(function(){
+				console.log(1);
+				next();
+			}, 1000)
+		}).link(function(obj, next) {
+			setTimeout(function(){
+				console.log(2);
+				next();
+			}, 1000)
+		}).link(function(obj, next) {
+			setTimeout(function(){
+				console.log(3);
+				next();
+			}, 1000)
+		}).link(function(obj, next) {
+			setTimeout(function(){
+				console.log(4);
+				next();
+			}, 1000)
+		}).run(window)
+    </script>
+</body>
+</html>

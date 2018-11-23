@@ -100,10 +100,27 @@ Hasher.prototype = {
 		return newHref;
 	},
 	getHash: function () {
-		var hash = []
-		try {
-			hash = window.location.hash.split('#')[1].split("&");
-		} catch (e) {}
+		var hash = [], hash_str = window.location.hash, handleType = 0;
+		var hash_content = hash_str.split('#')[1], hash_search = '';
+
+		if(/\?/.test(hash_str)) {
+			handleType = 1;
+			if(/^#[^\?=&!]+\?/g.test(hash_str)) {
+				hash_search = hash_content;
+			} else {
+				var before = hash_content.split('?')[0];
+				var after = hash_content.split('?')[1];
+				hash = before.split('&');
+				var last = hash.splice(-1, 1);
+
+				hash_search = last + '?' + after;
+			}
+		} else {
+			try {
+				hash = hash_str.split('#')[1].split("&");
+			} catch (e) {}
+		}
+
 		var hashObj = {};
 		hash.forEach(function (item) {
 			if (/=/.test(item))
@@ -111,6 +128,11 @@ Hasher.prototype = {
 			else
 				hashObj['$path'] = item;
 		});
+
+		if(handleType) {
+			hashObj['$path'] = hash_search;
+		}
+
 		return hashObj;
 	},
 	hashWatcher: function (e) {

@@ -14,6 +14,7 @@
  * v1.0.10.2 新增ShadeBox遮罩层类；ShowMsg加入关闭回调; 新增ShowConfirm确认弹框;
  * v1.0.10.3 调整Hasher类初始化时$data属性赋值及初始化变量监听的位置；修改Hasher类中判断onhashchange是否存在的条件为document.documentMode>=8；Hasher类将$path设为关键字;hasher类生命周期加入mounted钩子；丰富html方法编码解码的内容；追加getTimeStrmp生成时间戳方法；formValidateTrans方法自带类型加入中文映射；
  * v1.0.10.5 ajaxResCheck加入通用抛出code，以“throw-”开头的code将不在js内处理，直接抛出；
+ * v1.0.11.3 Hasher类中gethash方法重写，配适hash地址中带?的情况；
  *
  * export
  * mainVue类

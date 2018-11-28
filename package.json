@@ -4,9 +4,9 @@
   "description": "",
   "main": "dist/zh_app.js",
   "scripts": {
-    "build": "webpack --progress --env.type=0 --config build/webpack.config.js",
-    "buildmin": "webpack --progress --env.type=1 --config build/webpack.config.js",
-    "dev": "webpack --config build/webpack.config.js --progress --colors --watch",
+    "build": "webpack --progress --env.type=0 --config build/webpack.prod.conf.js",
+    "buildmin": "webpack --progress --env.type=1 --config build/webpack.base.conf.js",
+    "dev": "webpack --config build/webpack.dev.conf.js --progress --colors --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -26,6 +26,7 @@
   "devDependencies": {
     "babel-polyfill": "^6.26.0",
     "webpack": "^4.26.0",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-merge": "^4.1.0"
   }
 }

@@ -11,4 +11,4 @@ require('@/proto/String')
 
 var mainVue = require('@/lib/mainVue')
 
-module.exports = mainVue
+module.exports = mainVue;

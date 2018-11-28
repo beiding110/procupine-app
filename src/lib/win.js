@@ -27,15 +27,18 @@ var win = (function() {
 
 	function argHandler() {
 		callback = (typeof(arguments[arguments.length-1])==='function') ? arguments[arguments.length-1] : function() {};
+		var url = '';
 		if(typeof(arguments[0]) === 'string'){
-			callback(arguments[0])
+			url = arguments[0];
 		}else if(typeof(arguments[0]) === 'object') {
 			var path = arguments[0].path,
 				query = arguments[0].query;
 
-			var url = (typeof(query) === 'object') ? (path + toSearch(query)) : path;
-			callback(url);
-		}
+			url = (typeof(query) === 'object') ? (path + toSearch(query)) : path;
+		};
+		var timeStamp = (new Date).getTime();
+		url = /\?/.test(url) ? (url + '&ts=' + timeStamp) : (url + '?ts=' + timeStamp);
+		callback(url);
 	};
 
 	function argArrBuilder(arg, callback) {

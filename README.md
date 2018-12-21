@@ -16,6 +16,7 @@
  * v1.0.10.5 ajaxResCheck加入通用抛出code，以“throw-”开头的code将不在js内处理，直接抛出；
  * v1.0.11.3 Hasher类中gethash方法重写，配适hash地址中带?的情况；
  * v1.0.11.4 加入win对象，包含g和r方法，对应location.href和location.replace;
+ * v1.0.12.3 Hasher对象中，如果hash值没有改变，则手动调用一次对应值的watch方法；formValidateTrans自动表单验证加入require全空格验证；
  *
  * export
  * mainVue类

@@ -254,7 +254,7 @@
 	//表单验证预处理
 	function formValidateTrans() {
 
-		var nodeList = document.querySelectorAll('el-form-item'),
+        var nodeList = document.querySelectorAll('el-form-item'),
 			typeArr = ['string', 'number', 'boolean', 'method', 'regexp', 'integer', 'float', 'array', 'object', 'enum', 'date', 'url', 'hex', 'email'];
 			typeMap = ['字符串', '数字', '布尔', 'method', '正则', 'integer', '浮点数', '数组', '对象', 'enum', '日期', 'url地址', '哈希', '电子邮件'];
 
@@ -267,11 +267,13 @@
 				if (isExist(nodeList[i].getAttribute('change'))) {
 					trigger.push("change");
 				}
-				rules.push({
+				rules.push.apply(rules, [{
 					'required': 'true',
 					'message': '请输入' + nodeList[i].getAttribute('label'),
 					'trigger': trigger
-				})
+				}]);
+
+				mobileValStr += (dotBuilder(mobileValStr) + '{"validator": validatorObj.required,"trigger": ["blur", "change"]}');
 				nodeList[i].removeAttribute('required');
 				nodeList[i].removeAttribute('change');
 			}
@@ -295,11 +297,11 @@
 			}
 
 			if (isExist(nodeList[i].getAttribute('mobile'))) {
-				mobileValStr = '{ "validator":validatorObj.mobile,"trigger": ["blur", "change"]}';
+				mobileValStr += (dotBuilder(mobileValStr) + '{ "validator":validatorObj.mobile,"trigger": ["blur", "change"]}');
 				nodeList[i].removeAttribute('mobile');
 			}
 			if (isExist(nodeList[i].getAttribute('arrayvalue'))) {
-				mobileValStr = '{ "validator":validatorObj.arrayvalue,"trigger": ["blur", "change"]}';
+				mobileValStr += (dotBuilder(mobileValStr) + '{ "validator":validatorObj.arrayvalue,"trigger": ["blur", "change"]}');
 				nodeList[i].removeAttribute('arrayvalue');
 			}
 
@@ -326,6 +328,30 @@
 			newRulesStr = newRulesStr.replace(/"/g, "'");
 			nodeList[i].setAttribute(':rules', newRulesStr);
 
+		}
+	}
+
+    //通用方法
+	var validatorObj = {
+		required: function(rules, value, callback) {
+			if(typeof value === 'string') {
+				if(!value.replace(/^\s+|\s+$/g,"")) {
+					return callback(new Error('内容不能为空格'))
+				}
+			}
+			callback();
+		},
+		mobile: function (rules, value, callback) {
+			if (!/^[1][0-9]{10}$/.test(value)) {
+				return callback(new Error('手机号格式错误'));
+			}
+			callback();
+		},
+		arrayvalue: function (rules, value, callback) {
+			if (!value.join()) {
+				return callback(new Error('请填写其它'));
+			}
+			callback();
 		}
 	}
 

@@ -39,6 +39,25 @@ Hasher.prototype = {
 
 		obj.mounted && obj.mounted.call(this);
 	},
+	change: function(method, key, value) {
+		var newHref = this.crearNewHref(key, value),
+			switchObj = {
+				push: function(newHref) {
+					window.location.href = newHref;
+				},
+				replace: function(newHref) {
+					window.location.replace(newHref)
+				}
+			}
+
+		switchObj[method](newHref);
+
+		if(value === this.$data[key]) {
+			this.$watch[key] && this.$watch[key](value, this.$data[key]);
+		};
+
+		return newHref;
+	},
 	/**
 	 * 可返回的在导航中加入参数，类比history对象pushState方法
 	 * @param  {string/Object} key   键或对象
@@ -46,10 +65,7 @@ Hasher.prototype = {
 	 * @return {string}       新的地址值
 	 */
 	push: function (key, value) {
-		var newHref = this.crearNewHref(key, value);
-
-		window.location.href = (newHref);
-		return newHref;
+		return this.change('push', key, value)
 	},
 	/**
 	 * 不可返回的在导航中加入参数，类比history对象replaceState方法
@@ -58,10 +74,7 @@ Hasher.prototype = {
 	 * @return {string}       新的地址值
 	 */
 	replace: function (key, value) {
-		var newHref = this.crearNewHref(key, value);
-
-		window.location.replace(newHref);
-		return newHref;
+		return this.change('replace', key, value)
 	},
 	toHash: function (key, value, callback) {
 		var hashObj = this.getHash();

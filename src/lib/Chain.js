@@ -2,10 +2,11 @@
  * 责任链类
  * @constructor
  */
-window.Chain = function () {
+function Chain() {
 	this.chain_arr = [];
 }
-window.Chain.prototype = {
+
+Chain.prototype = {
 	/**
 	 * 链的内容
 	 * @param  {function} fun 待执行函数，包含两个参数：通用参数及执行下一环节的函数
@@ -39,3 +40,5 @@ window.Chain.prototype = {
 		loop();
 	}
 };
+
+module.exports = Chain

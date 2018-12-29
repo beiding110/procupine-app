@@ -201,3 +201,5 @@ Hasher.prototype = {
 		})
 	}
 };
+
+module.exports = Hasher

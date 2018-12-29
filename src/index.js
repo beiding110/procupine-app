@@ -1,9 +1,10 @@
-require('@/lib/app')
-require('@/lib/Chain')
-require('@/lib/Hasher')
-require('@/lib/Shade')
+require('@/lib/app')(window)
 require('@/lib/window')
-// require('@/lib/echarts-baseclass')
+
+window.Chain = require('@/lib/Chain')
+window.Hasher = require('@/lib/Hasher')
+window.ShadeBox = require('@/lib/Shade')
+// window.eObj = require('@/lib/echarts-baseclass')
 window.win = require('@/lib/win')
 
 require('@/proto/Date')

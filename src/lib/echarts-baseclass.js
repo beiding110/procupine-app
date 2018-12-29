@@ -1,4 +1,4 @@
-window.eObj = (function(owner){
+var eObj = (function(owner){
     function BaseClass(obj) {
         return this.init(obj);
     };
@@ -269,3 +269,5 @@ window.eObj = (function(owner){
         Radar: Radar
     }
 })()
+
+module.exports = eObj

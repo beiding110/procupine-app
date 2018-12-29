@@ -77,3 +77,5 @@ ShadeBox.prototype = {
         }.bind(this), this.animate);
     }
 };
+
+module.exports = ShadeBox

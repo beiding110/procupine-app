@@ -1,4 +1,4 @@
-(function(owner) {
+module.exports = function(owner) {
     //验证是否为空
     owner.IsNullOrEmpty = function (val) {
         if (val != undefined && val != null && val != "") {
@@ -631,4 +631,4 @@
     	});
     	return target;
     }
-})(window)
+}

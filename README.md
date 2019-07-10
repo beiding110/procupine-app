@@ -18,6 +18,11 @@
  * v1.0.11.4 加入win对象，包含g和r方法，对应location.href和location.replace;
  * v1.0.12.3 Hasher对象中，如果hash值没有改变，则手动调用一次对应值的watch方法；formValidateTrans自动表单验证加入require全空格验证；
  * v1.0.12.4 mixin函数加入了待混入对象防错机制；ajaxResCheck加入的error的中英文对照；
+ * v1.1.3.2 AjaxRequest中的loadingController的所属对象改为this；
+ * v1.1.3.3 加入Vue.$ajax方法；
+ * v1.1.4.1 Vue.$ajax方法加入complete和error自定义回调；
+ * v1.1.6.4 getSearch方法在初步处理时就开始进行解码处理；
+ * v1.1.7.2 加入getLocation方法，用于在getSearch和getHash方法中复用；toSearch方法中数组的处理方式修改，不再生成索引；
  *
  * export
  * mainVue类

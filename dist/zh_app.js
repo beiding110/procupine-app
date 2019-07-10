@@ -11655,6 +11655,10 @@ module.exports = function(owner) {
 
 	});
 
+    Vue.prototype.$ajax = function(obj) {
+        AjaxRequest.call(this, obj);
+    };
+
 	Vue.prototype.$get = function (a, b, c, d) {
 		var url, data, callback, fztype;
 
@@ -11739,10 +11743,11 @@ module.exports = function(owner) {
 	 ***************************************/
 	function AjaxRequest(settings) {
 		try {
-			$vue.loadingController = true;
+			this.loadingController = true;
 		} catch (e) {}
 
-		var c_data = clone(settings.data);
+		var c_data = clone(settings.data),
+            that = this;
 
 		c_data = !!settings.fztype ? JSON.stringify(c_data) : c_data;
 		var contentType = !!settings.fztype ? 'application/json;charset=UTF-8' : 'application/x-www-form-urlencoded;charset=UTF-8';
@@ -11760,7 +11765,7 @@ module.exports = function(owner) {
 
 				var obj = (typeof (data) == 'string' && /{|}/.test(data)) ? JSON.parse(data) : data;
 				try {
-					$vue.loadingController = false;
+					that.loadingController = false;
 				} catch (e) {}
 
 				//反编码
@@ -11781,7 +11786,6 @@ module.exports = function(owner) {
 				}
 				decode(obj);
 
-
 				ajaxResCheck.call(this, obj, settings, callback);
 			},
 			//AJAX请求结束后，
@@ -11796,7 +11800,9 @@ module.exports = function(owner) {
 					}
 				} catch (e) {
 					// TODO: handle exception
-				}
+				};
+
+                !!settings.complete && settings.complete();
 			},
             error: function(XHR, textStatus, errorThrown){
                 var switchObj = {
@@ -11822,6 +11828,8 @@ module.exports = function(owner) {
 				ShowMsg((XHR.status && switchObj[XHR.status]) ? (XHR.status + '：' + switchObj[XHR.status]) : '请求失败，请重试');
 				console.error('ajax-error:'+settings.url);
                 console.warn(XHR);
+
+                !!settings.error && settings.error();
 			}
 		})
 	}

@@ -362,7 +362,10 @@ module.exports = function(owner) {
 
         for (var i = 0; i < fraction.length; i++)
         {
-            s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, '');
+            var toInt = Math.floor(n * 1000) + '';
+            s += (digit[Number(toInt.slice(-(3 - i), -(2 - i)))] + fraction[i]).replace(/零./, '');
+
+            // s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, '');
         }
         s = s || '整';
         n = Math.floor(n);
@@ -397,5 +400,14 @@ module.exports = function(owner) {
     		}
     	});
     	return target;
+    }
+
+    /**
+    * 获取变量类型
+    * @param  {All} obj 待获取类型的变量
+    * @return {String}     变量类型
+    */
+    owner.getType = function(obj) {
+        return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
     }
 }

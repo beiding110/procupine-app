@@ -27,17 +27,32 @@ var win = (function() {
 
 	function argHandler() {
 		callback = (typeof(arguments[arguments.length-1])==='function') ? arguments[arguments.length-1] : function() {};
-		var url = '';
-		if(typeof(arguments[0]) === 'string'){
-			url = arguments[0];
-		}else if(typeof(arguments[0]) === 'object') {
-			var path = arguments[0].path,
-				query = arguments[0].query;
+			var url = '';
+			if(typeof(arguments[0]) === 'string'){
+				url = arguments[0];
+			}else if(typeof(arguments[0]) === 'object') {
+				var path = arguments[0].path,
+					query = arguments[0].query;
 
-			url = (typeof(query) === 'object') ? (path + toSearch(query)) : path;
-		};
-		var timeStamp = (new Date).getTime();
-		url = /\?/.test(url) ? (url + '&ts=' + timeStamp) : (url + '?ts=' + timeStamp);
+				url = (typeof(query) === 'object') ? (path + toSearch(query)) : path;
+			};
+			var timeStamp = (new Date).getTime();
+            if(/#/.test(url)) {
+                var urlArr = url.split('#');
+                if(/\?/.test(url)) {
+                    urlArr[0] += ('&ts=' + timeStamp)
+                } else {
+                    urlArr[0] += ('?ts=' + timeStamp)
+                };
+                url = urlArr.join('#');
+            } else {
+                if(/\?/.test(url)) {
+                    url = url + '&ts=' + timeStamp
+                } else {
+                    url = url + '?ts=' + timeStamp
+                };
+            }
+			callback(url);
 		callback(url);
 	};
 

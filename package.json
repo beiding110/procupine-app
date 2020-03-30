@@ -9,9 +9,7 @@
     "dev": "webpack --config build/webpack.dev.conf.js --progress --colors --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "jquery": "^3.2.1"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/beiding110/procupine-app.git"
